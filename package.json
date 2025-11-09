@@ -1,0 +1,25 @@
+{
+  "name": "repo",
+  "version": "1.0.0",
+  "description": "تطبيق ويب عربي بالكامل (RTL) لإدارة المستندات والمراسلات بنمط داكن أنيق.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://x-access-token:ghs_Hz7MJMax9d98L9gOVWZlVqg6nZxFAq2251Nw@github.com/EngMahdy/Mahmoud-Mahdy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EngMahdy/Mahmoud-Mahdy/issues"
+  },
+  "homepage": "https://github.com/EngMahdy/Mahmoud-Mahdy#readme",
+  "dependencies": {
+    "@netlify/blobs": "^10.3.3",
+    "@netlify/functions": "^5.1.0",
+    "parse-multipart-data": "^1.5.0"
+  }
+}

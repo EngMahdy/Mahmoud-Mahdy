@@ -1,0 +1,30 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  command = "npm install --production=false"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  conditions = {Role = []}
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  
+[build.environment]
+  NODE_VERSION = "22.21.1"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[[plugins]]
+  package = "netlify-plugin-debug-cache"
+
+[[plugins]]
+  package = "netlify-plugin-cecil-cache"
+
+[[plugins]]
+  package = "netlify-plugin-no-more-404"

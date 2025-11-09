@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المستندات والمراسلات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📂 الأقسام</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="محل-21">
+                    <span class="icon">🏪</span>
+                    <span>المحل 21 – مطعم مكبوس حاشي</span>
+                </button>
+                <button class="nav-item" data-section="محل-22">
+                    <span class="icon">🌴</span>
+                    <span>المحل 22 – مؤسسة المملكة للتمور</span>
+                </button>
+                <button class="nav-item" data-section="محل-25">
+                    <span class="icon">☕</span>
+                    <span>المحل 25 – محمصة حلى الشام</span>
+                </button>
+                <button class="nav-item" data-section="الدفاع-المدني">
+                    <span class="icon">🚒</span>
+                    <span>الدفاع المدني بالمبنى</span>
+                </button>
+                <button class="nav-item" data-section="صيانة">
+                    <span class="icon">🔧</span>
+                    <span>صيانة</span>
+                </button>
+                <button class="nav-item" data-section="شركة-التأمين">
+                    <span class="icon">🛡️</span>
+                    <span>شركة التأمين</span>
+                </button>
+                <button class="nav-item" data-section="مراسلات-عامة">
+                    <span class="icon">📧</span>
+                    <span>مراسلات عامة</span>
+                </button>
+                <button class="nav-item" data-section="مرفقات">
+                    <span class="icon">📎</span>
+                    <span>مرفقات</span>
+                </button>
+                <button class="nav-item" data-section="سحابة-الملفات">
+                    <span class="icon">☁️</span>
+                    <span>سحابة الملفات</span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="section-title">المحل 21 – مطعم مكبوس حاشي</h1>
+                <div class="control-buttons">
+                    <button class="btn btn-primary" id="add-doc-btn">
+                        <span>➕</span> إضافة مستند جديد
+                    </button>
+                    <button class="btn btn-success" id="export-btn">
+                        <span>📤</span> تصدير JSON
+                    </button>
+                    <button class="btn btn-info" id="import-btn">
+                        <span>📥</span> استيراد JSON
+                    </button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button class="btn btn-warning" id="print-btn">
+                        <span>🖨️</span> طباعة فهرس PDF
+                    </button>
+                    <button class="btn btn-danger" id="clear-btn">
+                        <span>🗑️</span> تفريغ البيانات
+                    </button>
+                    <button class="btn btn-secondary" id="disable-add-btn">
+                        <span>🚫</span> تعطيل الإضافة
+                    </button>
+                </div>
+            </header>
+
+            <div class="documents-grid" id="documents-container">
+            </div>
+
+            <div class="cloud-files-section" id="cloud-files-section" style="display: none;">
+                <div class="upload-area">
+                    <h3>رفع ملف جديد</h3>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem;">
+                        📤 اسحب الملف وأفلته هنا أو اختر ملف (الحد الأقصى: 50 ميجابايت)
+                    </p>
+                    <form id="cloud-upload-form">
+                        <input type="file" id="cloud-file-input" required>
+                        <button type="submit" class="btn btn-primary">رفع الملف</button>
+                    </form>
+                </div>
+                <div class="files-list">
+                    <h3>الملفات المرفوعة</h3>
+                    <div id="cloud-files-list"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal" id="add-doc-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إضافة مستند جديد</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <form id="doc-form">
+                <div class="form-group">
+                    <label for="section">القسم</label>
+                    <select id="section" required>
+                        <option value="محل-21">المحل 21 – مطعم مكبوس حاشي</option>
+                        <option value="محل-22">المحل 22 – مؤسسة المملكة للتمور</option>
+                        <option value="محل-25">المحل 25 – محمصة حلى الشام</option>
+                        <option value="الدفاع-المدني">الدفاع المدني بالمبنى</option>
+                        <option value="صيانة">صيانة</option>
+                        <option value="شركة-التأمين">شركة التأمين</option>
+                        <option value="مراسلات-عامة">مراسلات عامة</option>
+                        <option value="مرفقات">مرفقات</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">الفئة</label>
+                    <input type="text" id="category" placeholder="مثال: عقد، فاتورة، مراسلة" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">عنوان المستند</label>
+                    <input type="text" id="title" placeholder="أدخل عنوان المستند" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">تاريخ المستند</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">مبلغ مستحق (اختياري)</label>
+                    <input type="number" id="amount" placeholder="0.00" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">ملاحظات</label>
+                    <textarea id="notes" rows="3" placeholder="أضف ملاحظات إضافية هنا..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>رفع ملف أو إدخال رابط</label>
+                    <div class="file-input-group">
+                        <input type="file" id="file-upload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                        <span class="or-divider">أو</span>
+                        <input type="url" id="external-link" placeholder="https://example.com/document.pdf">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">حفظ المستند</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
